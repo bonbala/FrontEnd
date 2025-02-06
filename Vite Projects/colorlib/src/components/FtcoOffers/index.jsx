@@ -2,6 +2,14 @@ import React from "react";
 import "./style.scss";
 import illustration from "../../assets/images/about.jpg";
 import { GiTeacher } from "react-icons/gi";
+import { LiaBookReaderSolid } from "react-icons/lia";
+import { TbFileCertificate } from "react-icons/tb";
+import { IoShieldCheckmarkOutline } from "react-icons/io5";
+import { GiPuzzle } from "react-icons/gi";
+import { GiHumanPyramid } from "react-icons/gi";
+
+
+
 
 const FtcoOffers = () => {
   return (
@@ -16,7 +24,7 @@ const FtcoOffers = () => {
 
         <div className="offers-container">
           <div className="offer">
-            <div className="icon"><GiTeacher /></div>
+            <div className="icon"><IoShieldCheckmarkOutline /></div>
 
             <div className="offer-context">
               <h2>Safety First</h2>
@@ -27,9 +35,19 @@ const FtcoOffers = () => {
             </div>
           </div>
           <div className="offer">
-            <div className="icon"><GiTeacher /></div>
+            <div className="icon"><LiaBookReaderSolid /></div>
             <div className="offer-context">
-              <h2>Safety First</h2>
+              <h2>Regular Classes</h2>
+              <p>
+                Far far away, behind the word mountains, far from the countries
+                Vokalia.
+              </p>
+            </div>
+          </div>
+          <div className="offer">
+            <div className="icon"><TbFileCertificate /></div>
+            <div className="offer-context">
+              <h2>Certified Teachers</h2>
               <p>
                 Far far away, behind the word mountains, far from the countries
                 Vokalia.
@@ -39,7 +57,7 @@ const FtcoOffers = () => {
           <div className="offer">
             <div className="icon"><GiTeacher /></div>
             <div className="offer-context">
-              <h2>Safety First</h2>
+              <h2>Sufficient Classrooms</h2>
               <p>
                 Far far away, behind the word mountains, far from the countries
                 Vokalia.
@@ -47,9 +65,9 @@ const FtcoOffers = () => {
             </div>
           </div>
           <div className="offer">
-            <div className="icon"><GiTeacher /></div>
+            <div className="icon"><GiPuzzle /></div>
             <div className="offer-context">
-              <h2>Safety First</h2>
+              <h2>Creative Lessons</h2>
               <p>
                 Far far away, behind the word mountains, far from the countries
                 Vokalia.
@@ -57,19 +75,9 @@ const FtcoOffers = () => {
             </div>
           </div>
           <div className="offer">
-            <div className="icon"><GiTeacher /></div>
+            <div className="icon"><GiHumanPyramid /></div>
             <div className="offer-context">
-              <h2>Safety First</h2>
-              <p>
-                Far far away, behind the word mountains, far from the countries
-                Vokalia.
-              </p>
-            </div>
-          </div>
-          <div className="offer">
-            <div className="icon"><GiTeacher /></div>
-            <div className="offer-context">
-              <h2>Safety First</h2>
+              <h2>Sports Facilities</h2>
               <p>
                 Far far away, behind the word mountains, far from the countries
                 Vokalia.

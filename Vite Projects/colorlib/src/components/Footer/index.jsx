@@ -78,7 +78,7 @@ const Footer = () => {
           </div>
         </div>
       </div>
-      <p>Copyright ©2025 All rights reserved | This template is made with  by Colorlib</p>
+      <p className='CR'>Copyright ©2025 All rights reserved | This template is made with  by Colorlib</p>
     </div>
   );
 }

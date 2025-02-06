@@ -1,7 +1,7 @@
 import React from 'react'
 import './style.scss'
 import { GiTeacher } from "react-icons/gi";
-import { BiBookReader } from "react-icons/bi";
+import { LiaBookReaderSolid } from "react-icons/lia";
 import { IoLibraryOutline } from "react-icons/io5";
 import { TbFileCertificate } from "react-icons/tb";
 
@@ -25,7 +25,7 @@ const FtcoServices = () => {
         </p>
       </div>
       <div className='Ftco-card-blue'>
-        <BiBookReader/>
+        <LiaBookReaderSolid/>
         <h1>Book & Library</h1>
         <p>
           Even the all-powerful Pointing has no control about the blind texts it

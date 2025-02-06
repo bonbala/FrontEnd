@@ -20,7 +20,7 @@ const course = [
   {
     courseName: 'Electric Engineering',
     description: 'Separated they live in. A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country',
-    teacherName: 'MR. KHAN 2',
+    teacherName: 'MR. QUAN ',
     seats: 10,
     duration: 4,
     illustration: imgCourse2, 
@@ -28,7 +28,7 @@ const course = [
   {
     courseName: 'Electric Engineering',
     description: 'Separated they live in. A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country',
-    teacherName: 'MR. KHAN 3',
+    teacherName: 'MR. DUANH ',
     seats: 10,
     duration: 4,
     illustration: imgCourse3, 
@@ -36,7 +36,7 @@ const course = [
   {
     courseName: 'Electric Engineering',
     description: 'Separated they live in. A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country',
-    teacherName: 'MR. KHAN 4',
+    teacherName: 'MR. KONG ',
     seats: 10,
     duration: 4,
     illustration: imgCourse4, 

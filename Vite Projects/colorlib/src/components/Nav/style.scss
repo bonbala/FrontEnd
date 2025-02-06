@@ -3,13 +3,14 @@
 .nav-component {
     width: 100%;   
     .nav-down{
-        height: 70px;
+        
         background-color: theme.$secondary-color;
-        padding: 0 24px;
+        padding: 10px 24px;
         display: flex;
         align-items: center;
         justify-content: space-between;
         margin: 0 auto;
+        flex-wrap: wrap;
         .menu{
             display: none;
             color: theme.$icon-color;
@@ -62,13 +63,31 @@
         }
     }
 }
+@media (max-width: 540px) {
+    .nav-component{
+        .nav-down{
+            padding: 0.5rem 0;
+            row-gap: 5px;
+            .menu{
+                padding-left: 15px;
+            }
+            .search-input{
+                width: 100%;
+                input{
+                    width: 100%;
+                }
+            }
+        }
+    }
+}
 @media (max-width: 767.98px) {
     .container{
         max-width: 540px;
     }
     .nav-component{
         .nav-down{
-            padding: 0 39px;
+            padding-left: 39px;
+            padding-right: 39px;
         }
     }
 }

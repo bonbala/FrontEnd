@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Employee Management</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Employee Management</h1>
+
+      <!-- Form để thêm và cập nhật nhân viên -->
+      <div class="form-container">
+        <input type="text" id="name" placeholder="Employee Name" />
+        <input type="number" id="age" placeholder="Employee Age" />
+
+        <!-- Chọn vị trí (Position) -->
+        <select id="position">
+          <option value="">Select Position</option>
+          <option value="Manager">Manager</option>
+          <option value="Developer">Developer</option>
+          <option value="Designer">Designer</option>
+          <option value="Marketing">Marketing</option>
+        </select>
+
+        <!-- Chọn phòng ban (Department) -->
+        <select id="department">
+          <option value="">Select Department</option>
+          <option value="HR">HR</option>
+          <option value="IT">IT</option>
+          <option value="Finance">Finance</option>
+          <option value="Sales">Sales</option>
+        </select>
+
+        <!-- Chọn vai trò (Role) -->
+        <select id="role">
+          <option value="">Select Role</option>
+          <option value="Staff">Staff</option>
+          <option value="Team Lead">Team Lead</option>
+          <option value="Senior">Senior</option>
+        </select>
+
+        <button id="addButton" onclick="addEmployee()">Add Employee</button>
+        <button
+          id="updateButton"
+          onclick="updateEmployee()"
+          style="display: none"
+        >
+          Update Employee
+        </button>
+      </div>
+
+      <!-- Công cụ tìm kiếm -->
+      <div class="search-container">
+        <input
+          type="text"
+          id="searchInput"
+          placeholder="Search Employee..."
+          oninput="searchEmployee()"
+        />
+      </div>
+
+      <!-- Bảng hiển thị danh sách nhân viên -->
+      <table id="employeeTable">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th onclick="sortByName()">Name</th>
+            <th>Age</th>
+            <th>Position</th>
+            <th onclick="sortByDepartment()">Department</th>
+            <th>Role</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="employeeList">
+          <!-- Danh sách nhân viên sẽ được hiển thị tại đây -->
+          <tr>
+            <td>1</td>
+            <td>Bùi Vĩnh Khải</td>
+            <td>20</td>
+            <td>Developer</td>
+            <td>IT</td>
+            <td>Senior</td>
+            <td>
+              <button>Edit</button>
+              <button>Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <script src="./js/EmployeeList.js"></script>
+    <script src="./js/Employee.js"></script>
+    <script src="./js/valiadtion.js"></script>
+    <script src="./js/main.js"></script>
+  </body>
+</html>

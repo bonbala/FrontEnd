@@ -1,0 +1,114 @@
+@use '../../theme/theme' as theme;
+
+.nav-component {
+    width: 100%;   
+    .nav-down{
+        height: 70px;
+        background-color: theme.$secondary-color;
+        padding: 0 24px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin: 0 auto;
+        .menu{
+            display: none;
+            color: theme.$icon-color;
+            cursor: pointer;
+        }
+        .nav-items{
+            display: flex;
+            list-style: none;
+            color: white;
+            height: 100%;
+            li{
+                padding: 0 20px;
+                cursor: pointer;
+                height: 100%;
+                align-content: center;
+
+                font-size: 14px;
+                font-weight: 300;
+
+                &:first-child{
+                    padding-left: 0;
+                }
+            }
+            
+        }
+        .search-input{
+            border: solid 1px #373a48;
+            padding: 0px 12px 0px 16px;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            input{
+                color: #b7b8bf;
+                background: transparent;
+                height: 52px;
+                &::placeholder{
+                    color: #b7b8bf; 
+                }
+                &:focus{
+                    outline: none;
+                }
+            }
+            svg{
+                font-size: 20px;
+                path{
+                    color: #b7b8bf ;
+                    font-size: 20px;
+                }
+            }
+        }
+    }
+}
+@media (max-width: 767.98px) {
+    .container{
+        max-width: 540px;
+    }
+    .nav-component{
+        .nav-down{
+            padding: 0 39px;
+        }
+    }
+}
+@media (min-width: 768px) and (max-width: 991.98px) {
+    .container{
+        max-width: 720px;
+    }
+    
+}
+@media (max-width: 991.98px){
+    .nav-component{
+        background-color: theme.$secondary-color;
+        .nav-down{
+            
+            .nav-items{
+                display: none;
+            }
+            .menu{
+                display: flex;
+                align-items: center;
+                gap: 10px;
+
+                font-weight: 500;
+            }
+        }
+    }
+}
+@media (min-width: 992px) and (max-width: 1199.98px) {
+    .container{
+        max-width: 960px;
+    }
+    
+}
+@media (min-width: 1200px) {
+    .container{
+        max-width: 1140px;
+    }
+}
+
+
+
+
+

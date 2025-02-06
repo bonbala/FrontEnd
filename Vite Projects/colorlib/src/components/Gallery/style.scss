@@ -1,0 +1,50 @@
+@use '../../theme/theme' as theme;
+
+.gallery-component{
+    display: flex;
+    .gallery{
+        height: 350px;
+        width: 25%;
+        position: relative;
+
+        cursor: zoom-in;
+        &:hover .connected{
+            opacity: 1;
+
+        }
+        img{
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+        }
+        .connected{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+
+            background-color: theme.$primary-color;
+            padding: 15px;
+
+            opacity: 0;
+            
+            transition: all 0.3s ease-in-out;
+            
+            svg{
+                path{
+                    color: white;
+                }
+            }
+        }
+    }
+    
+}
+
+@media (max-width: 767.98px) {
+    .gallery-component{
+        flex-direction: column;
+        .gallery{
+            width: 100%;
+        }
+    }
+}

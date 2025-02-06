@@ -1,0 +1,121 @@
+@use '../../theme/theme' as theme;
+
+.slide-component{
+    
+    position: relative;
+    overflow: hidden;
+    .swiper{
+        height: 600px;
+        width: 100%;
+        .swiper-slide{
+            &::after{
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background-image: linear-gradient(45deg, #0d1128 0%, #fd6100 100%);
+                z-index: 1;
+                opacity: 0.5;
+            }
+            img{
+                top: 0;
+                left: 0;
+            }
+            .container-content{   
+                position: absolute; 
+                width: 100%;
+                top: 25%;
+                .content{
+                    margin: 0 auto;
+                    padding: 0 15px;
+                    position: relative;
+                    z-index: 10;
+                    overflow: hidden;
+                    
+                    h1{
+                        font-size: 50px;
+                        font-weight: 600;
+                        line-height: 1.2;
+                        color: white;
+    
+                        width: 50%;
+                        padding-bottom: 24px;
+                    }
+                    p{
+                        color: white;
+    
+                        width: 50%;
+                        line-height: 1.8;
+                        padding-bottom: 16px;
+                    }
+                    button{
+                        border-radius: 30px;
+                        border: solid 1px theme.$primary-color;
+                        background-color: theme.$primary-color;
+                        
+                        color: white ;
+                        padding: 16px 24px;
+                        margin-top: 16px;
+                        transition: all 0.3s ease-in;
+                        &:hover{
+                            background-color: transparent;
+                            color: theme.$primary-color;;
+                        }
+                    }
+                }
+            }
+        }
+        
+    }
+}
+
+@media (max-width: 767.98px) {
+    .slide-component{
+        .swiper{
+            .swiper-slide{
+                
+                .container-content{   
+                    .content{
+                        text-align: center;
+                        h1,p{ 
+                            width: 100%;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+@media (min-width: 768px) and (max-width: 991.98px) {
+    
+}
+@media (max-width: 991.98px){
+    .slide-component{
+        .swiper{
+            .swiper-slide{
+                img{
+                    height: 100%;
+                    width: 100%;
+                    position: absolute;
+                    object-fit: cover;
+                } 
+                .container-content{  
+                    .content{
+                        h1{
+                            font-size: 40px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+@media (min-width: 992px) and (max-width: 1199.98px) {
+
+    
+}
+@media (min-width: 1200px) {
+
+}

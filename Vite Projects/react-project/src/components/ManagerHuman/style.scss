@@ -1,0 +1,59 @@
+$background-color-form: #f1f1f1;
+
+.main-content{
+    display: flex;
+    .form{
+        margin-bottom: 40px;
+        width: 70%;
+    
+        justify-items: center;
+        .chakra-card__root{
+            width: 90%;
+            background-color: $background-color-form;
+            color: black;
+            .chakra-card__body{
+                input{background-color: white;}
+            }
+            .chakra-card__footer{
+                button:first-child{
+                    background-color: #cd5542;
+                    border: none;
+                    border-radius: 5px;
+                    color: white;
+                    &:hover{
+                        opacity: 0.7;
+                    }
+                }
+                
+            }
+        }
+    
+    }
+    
+}
+
+.employee-list{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 0 50px;
+    .chakra-card__root{
+        background-color: $background-color-form;
+        color: black;
+        .chakra-card__body{
+            input{background-color: white;}
+        }
+    }
+}
+
+.chakra-dialog__content{
+    background-color: white;
+    .chakra-dialog__body{
+        .chakra-table__root {
+            background: white;
+            color: white;
+        }
+    }
+}
+
+

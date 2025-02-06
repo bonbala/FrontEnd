@@ -1,0 +1,53 @@
+@use '../../theme/theme' as theme;
+
+.Ftco-component{
+    display: flex;
+    .Ftco-card-blue{
+        background-color: theme.$secondary-color;
+    }
+    .Ftco-card-orange{
+        background-color: theme.$primary-color;
+    }
+    .Ftco-card-blue, .Ftco-card-orange{
+        flex: 1;
+        text-align: center;
+        padding: 48px 24px;
+        justify-items: center;
+
+        color: white;
+        svg{
+            height: 50px;
+            width: 50px;
+            margin-bottom: 24px;
+        }
+        h1{
+            font-size: 22px;
+            line-height: 33px;
+            font-weight: 500;
+            margin-bottom: 16px;
+        }
+        p{
+            line-height: 1.8;
+            font-weight: 400;
+            opacity: 0.8;
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .Ftco-component{
+        flex-direction: column;
+        .Ftco-card-blue, .Ftco-card-orange{
+            padding: 48px 24px 102px 24px ;
+        }
+    }
+}
+
+
+
+
+
+
+
+
+

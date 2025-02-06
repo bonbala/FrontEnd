@@ -1,0 +1,52 @@
+/* RESPONSIVE */
+/* Điện thoại nhỏ */
+@media (max-width: 575.98px) { 
+    .video-component .video-context{
+        left: 30px;
+        bottom: 64px;
+    }
+
+ }
+
+/* Điện thoại lớn */
+@media (min-width: 576px) and (max-width: 767.98px) { 
+    .video-component .video-context{
+        left: 30px;
+        bottom: 64px;
+    }
+
+ }
+
+/* Máy tính bảng */
+@media (min-width: 768px) and (max-width: 991.98px) { 
+    .video-component .video-context{
+        left: 60px;
+        bottom: 64px;
+    }
+
+}
+
+/* Laptop nhỏ */
+@media (min-width: 992px) and (max-width: 1199.98px) { 
+    .video-component .video-context{
+        left: 60px;
+        bottom: 64px;
+    }
+
+}
+
+/* Desktop */
+@media (min-width: 1200px) { 
+
+
+}
+
+/* Desktop */
+@media (min-width: 1920px) { 
+    .component{
+        max-width: 1920px;
+        margin: 0 auto;
+    }
+
+    
+}

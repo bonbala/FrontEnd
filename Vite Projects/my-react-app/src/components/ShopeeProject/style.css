@@ -1,0 +1,14 @@
+body{
+    background-color: white;
+    color: black;
+}
+.line{
+    
+}
+.line2{
+    content: '';
+    position: absolute;
+    
+    height: 10px;
+    background: #000;
+}

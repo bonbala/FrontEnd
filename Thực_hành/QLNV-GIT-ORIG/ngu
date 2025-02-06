@@ -1,0 +1,73 @@
+
+function CapNhatNhanVien(){
+  var taiKhoan = getELE('tknv').value
+  var name = getELE('name').value
+  var email = getELE('email').value
+  var mk = getELE('password').value
+  var date = getELE('datepicker').value
+  var luong = getELE('luongCB').value
+  var chucVu = getELE('chucvu').value
+  var gioLam = getELE('gioLam').value
+
+  var isValid = true
+
+  isValid &= Val.checkEmty(name,"tbTen","Nhap ten") && Val.checkInfo(name,"tbTen","Nhap ten dung")
+
+  isValid &= Val.checkEmty(email,"tbEmail","Nhap email") && Val.checkInfo(email,"tbEmail","Nhap dung  email")
+  
+  //isValid &= Val.checkEmty(mk,"tbMatKhau","Nhap mat khau") && Val.checkInfo(mk,"tbMatKhau","dung form")
+  
+  isValid &= Val.checkEmty(date,"tbNgay","Nhap ngay")
+
+  isValid &= Val.checkEmty(luong,"tbLuongCB","Nhap mat khau") && Val.checkInfo(luong,"tbLuongCB","luong it nhat la 1tr")
+
+  isValid &= Val.checkEmty(chucVu,"tbChucVu","Chon chuc vu")
+
+  isValid &= Val.checkEmty(gioLam,"tbGiolam","Nhap gio lam")
+
+  if(isValid){
+
+    console.log(taiKhoan, name, email, mk, date, luong, chucVu, gioLam);
+
+    var nhanVien = new NhanVien(
+      taiKhoan,
+      name,
+      email,
+      mk,
+      date,
+      luong,
+      chucVu,
+      gioLam
+    );
+
+    nhanVien.tongLuong = nhanVien.tinhLuong()
+    nhanVien.xepLoai = nhanVien.tinhXepLoai()
+    console.log("nhan vien", nhanVien)
+
+    var viTri = dsnv.timViTri(nhanVien.taiKhoan)
+    console.log(viTri)
+
+    dsnv.capNhatNhanVien(nhanVien)
+
+    console.log("mang", dsnv.mang)
+
+    showDSNV(dsnv.mang)
+
+    setLocalStoragre()
+
+    getELE("form-area").reset()
+
+    getELE("btnDong").click()
+    
+    alert("update successfully")
+
+  }
+
+}
+
+DanhSachNhanVien.js
+
+    this.capNhatNhanVien = function(nhanVien){
+        var index = this.timViTri(nhanVien.taiKhoan)
+        this.mang[index] = nhanVien
+    }

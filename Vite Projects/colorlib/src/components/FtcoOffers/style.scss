@@ -1,0 +1,100 @@
+@use '../../theme/theme' as theme;
+
+.offers-component{
+    display: flex;
+    margin: 0 auto;
+    .content{
+        flex-basis:58.3333% ;
+        padding: 48px 15px;
+        h1{
+            margin-bottom: 1.5rem;
+            
+            font-size: 32px ;
+            font-weight: 500;
+            line-height: 1.5;
+        }
+        .context{
+            margin-bottom: 1rem;
+            line-height: 1.8;
+        }
+       .offers-container{
+        display: flex;
+        flex-wrap: wrap;
+        margin-top: 3rem;
+        .offer{
+            flex-basis: 50%;
+            display: flex;
+            padding: 0 1rem;
+            margin-bottom: 30px;
+            .icon{
+                height: 80px;
+                width: 80px;
+                background-color: theme.$primary-color;
+                border-radius: 50% ;
+                align-content: center;
+                justify-items: center;
+                svg{
+                    height: 30px;
+                    width: 30px;
+                    path{
+                        color: white;
+                    }
+                }
+            }
+            .offer-context{
+                flex: 1;
+                padding-left: 1rem;
+                h2{
+                    font-size: 20px;
+                    font-weight: 500;
+                    line-height: 1.5rem;
+                    margin-bottom: 0.5rem;
+                }
+                p{
+                    line-height: 1.8rem;
+                    margin-bottom: 1rem;
+                    opacity: 0.7;
+                }
+            }
+        }
+       } 
+    }
+    .illustration{  
+        width: 445px;
+        overflow: hidden;
+        flex-basis: 41.6667%;
+        img{
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+}
+
+@media (max-width: 768px){
+    .offers-component{
+        .content{
+            flex-basis: 100%;
+            .offers-container{
+                .offer{
+                    padding: 0;
+                }
+            }
+        }
+        .illustration{
+            display: none;
+        }
+    }
+}
+
+@media (max-width: 991px) {
+    .offers-component{
+        .content{
+            .offers-container{
+                .offer{
+                    flex-basis: 100%;
+                }
+            }
+        }
+    }
+}

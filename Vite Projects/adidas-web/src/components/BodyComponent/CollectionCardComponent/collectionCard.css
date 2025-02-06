@@ -1,0 +1,140 @@
+.collect-card-component{
+    margin-top: 50px;
+    width: auto;
+    display: flex;
+    justify-content: space-between;
+    gap: 5px;
+}
+
+.card .context{
+    display: flex;
+    flex-direction: column;
+}
+.card .context span a{  
+    color: black;
+}
+
+.collect-card-component::-webkit-scrollbar{
+    height: 4px;
+    background-color: #eceff1;
+}
+.collect-card-component::-webkit-scrollbar-thumb{
+    background-color: #000000;
+    height: 10px;
+    cursor: grab;  
+}
+.card .image img{
+   width:100%;
+   height:100%;
+   object-fit: cover;
+}
+.card{
+    border: solid 2px transparent
+}
+.card .image{
+    border: solid 2px transparent
+}
+.card:hover {
+    border: solid 2px black
+}
+.card:hover .image{
+    border: solid 2px white
+}
+.card .context{
+    padding: 16px;
+}
+.card .context span:first-child{
+    font-weight: 700;
+}
+.card .context span:nth-child(2){
+    margin: 15px 0 22px 0;
+}
+.card .context span:last-child{
+    font-weight: 700;
+    line-height: 35px;
+    width: fit-content;
+    border-bottom: solid 2px black ;
+}
+/* RESPONSIVE */
+/* Điện thoại nhỏ */
+@media (max-width: 600px) { 
+    .component{
+        width: auto;
+        margin: 40px 30px 0 30px;
+    }
+    .card .image{
+        height: auto;
+        width: 50vw;
+    }
+ }
+
+/* Điện thoại lớn */
+@media (min-width: 601px) and (max-width: 767.98px) { 
+  
+    .component{
+        width: auto;
+        margin: 30px 30px 0 30px;
+        
+    }
+    .card .image{
+        height: auto;
+        width: 40vw;
+    }
+
+ }
+
+/* Máy tính bảng */
+@media (min-width: 768px) and (max-width: 991.98px) { 
+    .component{
+        margin: 30px 0px 0 0px;
+    }
+    .card .image{
+        height: auto;
+        width: 33vw;
+    }
+    
+}
+
+@media (max-width: 991.98px){
+    .collect-card-component {
+        overflow-x: scroll;
+        overflow-y: hidden;
+        white-space: nowrap;
+    }
+    .collect-card-component::-webkit-scrollbar{
+        background-color: white;
+    }
+    .collect-card-component::-webkit-scrollbar-thumb{
+        background-color: white;
+    }
+}
+
+/* Laptop nhỏ */
+@media (min-width: 992px) and (max-width: 1199.98px) { 
+    .component{
+        margin: 30px 60px 0 60px;
+    }
+}
+
+/* Desktop */
+@media (min-width: 1200px) { 
+    .component{
+        margin-left: 108px ;
+        margin-right: 108px;
+    }
+
+}
+@media (max-width: 1200px) { 
+
+}
+/* Desktop */
+@media (min-width: 1920px) { 
+    .component{
+        max-width: 1920px;
+        margin-left: auto ;
+        margin-right: auto;
+    }
+    
+}
+
+

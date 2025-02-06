@@ -1,0 +1,251 @@
+.collect-prodcut-component{
+    width: auto;
+    margin: 30px 108px 0 108px;
+}
+.collect-prodcut-component .context{
+   display: flex;
+}
+.collect-prodcut-component .context .btn{
+    flex-grow: 8.5 ;
+}
+.collect-prodcut-component .context .link{
+    flex-grow: 1.5;
+}
+.collect-prodcut-component .context .btn button{
+    height: 44px;
+    width: 115px;
+    margin-right: 10px;
+    background-color: black;
+    color: white;
+    padding: 12px;
+    font-size: 14px;
+    font-weight: 700;
+    border: solid 0.8px black;
+    cursor: pointer;
+}
+.collect-prodcut-component .context .btn button:nth-child(2){
+    background-color: white;
+    color: black;
+}
+.collect-prodcut-component .context .btn button:nth-child(2):hover{
+    background-color: black;
+    color: white;
+}
+.collect-prodcut-component .context .link a{ 
+    color: black;
+    font-size: 16px;
+    font-weight: 700;
+    text-decoration:underline;
+    display: block;
+    height: 20px;
+    margin-left: 20px;
+    width: 81px;
+}
+.collect-prodcut-component .context .link a:hover{
+    color: white;
+    background-color: black;
+    
+    
+}
+.slide-product{
+    overflow-x: scroll;
+    overflow-y: hidden;  
+    scrollbar-width: 30px;
+    height: 370px;
+}
+.slide-product::-webkit-scrollbar{
+    height: 4px;
+    
+}
+.slide-product::-webkit-scrollbar-thumb{
+    background-color: #000000;
+    height: 10px;
+    cursor: grab;  
+}
+
+.slide-product:hover::-webkit-scrollbar{
+    transition: ease 0.5s;
+    height: 6px;     
+}
+.product-card-container{
+    cursor: pointer;
+    border: solid 0.2px transparent;
+}
+.product-card-container:hover{
+    border: solid 0.2px black;
+}
+.image-card{
+    width: 278px;
+    height: 278px;
+}
+.mobile-link{
+    display: none;
+    border: solid 1px transparent
+}
+.mobile-link:hover{
+    border: solid 1px black;
+}
+.mobile-link:hover, .mobile-link:hover a,.mobile-link:hover .icon-arrow{
+    color: black !important;
+    background-color: white;
+}
+.product-card .image-card{
+    position: relative;
+}
+.product-card .image-card .title-card{
+    transition: linear 0.2s all;
+    position: absolute;
+    left: 5px;
+    bottom: 0;
+    background-color: white;
+    padding: 5px;
+   
+}
+.product-card:hover .title-card{
+    transition: linear 0.2s all;
+    bottom: 5px;
+}
+.product-card .context-card{
+    gap: 5px;
+    padding: 10px 0px 20px 10px;
+}
+.product-card .context-card :nth-child(2){
+    color: gray;
+}
+.product-card .image-card .heart-icon,.product-card .image-card .heart-icon-active{
+    position: absolute;
+    right: 20px;
+    top: 20px;
+}
+.product-card .image-card .heart-icon-active{
+    display: none;
+}
+.product-card .image-card .heart-icon:hover + .heart-icon-active{
+    display: block;
+}
+/* RESPONSIVE */
+/* Điện thoại nhỏ */
+@media (max-width: 600px) { 
+    .collect-prodcut-component{
+        width: auto;
+        margin: 20px 30px 0 30px;
+    }
+    .slide-product{
+        overflow: hidden;
+        flex-direction: row;
+        flex-wrap: wrap;
+        
+    }
+    .image-card{
+        width: 100% !important;
+        height: 100% !important;
+    }
+    .product-card{
+        width: 48% !important;
+        height: fit-content;
+        
+    }
+    .slide-product{
+        height: auto !important;
+        gap: 5px!important;
+        justify-content:space-evenly
+    }
+    .context-card{
+        display: none !important;
+    }
+    .collect-prodcut-component .context .link{
+        display: none;
+    }
+    .collect-prodcut-component .context .btn button{
+        width: 40%;
+        font-size: 16px;
+    }
+    .mobile-link a{
+        text-decoration: none;
+        color: white;
+        height: 100%;
+        width: 100%;
+        display: flex !important;
+        justify-content: space-between;  
+        align-items: center;
+    }
+    .mobile-link{
+        height: 50px;
+        background-color: #000000;
+        padding: 0 15px;
+        display: block;
+        margin-top: 5px;
+    }
+ }
+
+/* Điện thoại lớn */
+@media (min-width: 601px) and (max-width: 767.98px) { 
+    .collect-prodcut-component{
+        width: auto;
+        margin: 20px 30px 0 30px;
+    }
+    .image-card{
+        width: 163px !important;
+        height: 163px !important;
+    }
+    .slide-product{
+        height: 240px !important;
+    }
+    .collect-prodcut-component .context .link a{
+        margin: 13px 0 0 0;
+    }
+ }
+
+/* Máy tính bảng */
+@media (min-width: 768px) and (max-width: 991.98px) { 
+    .collect-prodcut-component{
+        margin: 30px 60px 0 60px;
+    }
+    .image-card{
+        width: 316px !important;
+        height: 316px !important;
+    }
+    .slide-product{
+        height: 400px !important;
+    }
+
+}
+
+/* Laptop nhỏ */
+@media (min-width: 992px) and (max-width: 1199.98px) { 
+    .collect-prodcut-component{
+        margin: 30px 60px 0 60px;
+    }
+}
+
+/* Desktop */
+@media (min-width: 1200px) { 
+
+
+}
+@media (max-width: 1200px) { 
+    .image-card{
+        width: 208px;
+        height: 208px;
+    }
+    .slide-product{
+        height: 280px;
+    }
+}
+/* Desktop */
+@media (min-width: 1920px) { 
+    .collect-prodcut-component{
+        max-width: 1920px;
+        margin-left: auto ;
+        margin-right: auto;
+    }
+    .collect-prodcut-component .context .btn{
+        flex-grow: 9.9 ;
+    }
+    .collect-prodcut-component .context .link{
+        flex-grow: 0.1;
+        display: flex;
+        justify-content: end;
+    }
+    
+}

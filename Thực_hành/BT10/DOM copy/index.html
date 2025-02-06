@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Management</title>
+    <style>
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body> 
+    <div>
+        <table class="content">
+            <thead>
+                <tr>
+                    <td>MaSV</td>
+                    <td>Ten</td>
+                    <td>DiemTB</td>
+                    <td>XepLoai</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </thead>
+            <tbody>
+                
+            </tbody>
+        </table>
+        
+        <div id="edit-form" class="hidden">
+            <h2>Edit Student</h2>
+            <form id="form">
+                <label for="maSV">MaSV:</label>
+                <input type="text" id="maSV" name="maSV" readonly><br>
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name"><br>
+                <label for="diemTB">DiemTB:</label>
+                <input type="number" id="diemTB" name="diemTB" step="0.1"><br>
+                <label for="loai">XepLoai:</label>
+                <input type="text" id="loai" name="loai"><br>
+                <button type="button" onclick="handleSaveEdit()">Save</button>
+                <button type="button" onclick="handleCancelEdit()">Cancel</button>
+            </form>
+        </div>
+    </div>
+    <script src="./main.js"></script>
+</body>
+</html>

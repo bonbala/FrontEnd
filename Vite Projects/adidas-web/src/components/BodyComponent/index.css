@@ -1,0 +1,105 @@
+.video-component{
+    position: relative;
+}
+.video-component video{
+    width: 100%;
+    height: auto;
+    z-index: 1;
+
+}
+.video-component .video-context{
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    left: 108px;
+    bottom: 64px;
+    z-index: 10;
+}
+.video-component .video-context span{
+    background-color: white;
+}
+.video-component .video-context .banner-title span {
+    font-size: 22px;
+    font-weight: 700;   
+    padding: 2.4px 4.8px;
+}
+.video-component .video-context .banner-title{
+    margin-bottom: 8px;
+}
+.video-component .video-context .banner-summary span {
+    font-size: 18px;
+    padding: 2.4px 4.8px;
+}
+.video-component .video-context .banner-summary{
+    margin-bottom: 20px;
+}
+.video-component .video-context .button{
+    display: flex;
+}
+.video-component .video-context .button .nav-shop-men, .video-component .video-context .button .nav-shop-women{
+    width: 144px;
+    height: 32px;
+    background-color: white;
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+    padding: 0 12px
+}
+.video-component .video-context .button .nav-shop-men a , .video-component .video-context .button .nav-shop-women a{
+    font-weight: 700;
+    font-size: 16px;
+}
+
+
+/* RESPONSIVE */
+/* Điện thoại nhỏ */
+@media (max-width: 575.98px) { 
+    .video-component .video-context{
+        left: 30px;
+        bottom: 64px;
+    }
+
+ }
+
+/* Điện thoại lớn */
+@media (min-width: 576px) and (max-width: 767.98px) { 
+    .video-component .video-context{
+        left: 30px;
+        bottom: 64px;
+    }
+
+ }
+
+/* Máy tính bảng */
+@media (min-width: 768px) and (max-width: 991.98px) { 
+    .video-component .video-context{
+        left: 60px;
+        bottom: 64px;
+    }
+
+}
+
+/* Laptop nhỏ */
+@media (min-width: 992px) and (max-width: 1199.98px) { 
+    .video-component .video-context{
+        left: 60px;
+        bottom: 64px;
+    }
+
+}
+
+/* Desktop */
+@media (min-width: 1200px) { 
+
+
+}
+
+/* Desktop */
+@media (min-width: 1920px) { 
+    .video-component{
+        max-width: 1920px;
+        margin: 0 auto;
+    }
+
+    
+}

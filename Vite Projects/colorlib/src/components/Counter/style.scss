@@ -1,0 +1,106 @@
+@use '../../theme/theme' as theme ;
+
+.counter-component{
+    padding: 7em 0;
+
+    background-image: url('../../assets/images/bg_3.jpg');
+    background-repeat: none;
+    background-size: cover;
+    background-position: center;
+
+    color: white;
+
+    position: relative;
+
+    &::after{
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-image: linear-gradient(45deg, #0d1128 0%, #fd6100 100%);
+        z-index: 0;
+        opacity: 0.5;
+    }
+
+    .content{
+        margin: 0 auto;
+
+        position: relative;
+        z-index: 1;
+
+        .content-above{
+            display: flex;
+
+            margin-bottom: 3em;
+            padding-bottom: 8px;
+            .above-left{
+                flex-basis: 50%;
+                padding: 0 15px;
+                img{
+                    height: 100%;
+                    width: auto;
+                    object-fit: cover;
+                }
+            }
+            .above-right{
+                flex-basis: 50%;
+                padding-left: 3rem;
+                padding-right: 15px;
+                h2{
+                    margin-bottom: 1.5rem;
+                    
+                    font-size: 40px;
+                    font-weight: 600;
+                    line-height: 1.5;
+                }
+                p{
+                    margin-bottom: 1rem;
+                    line-height: 1.8;
+                }
+            }
+        }
+        .content-below{
+            display: flex;
+            .counter{
+                flex: 1;
+                text-align: center;
+                display: flex;
+                flex-direction: column;
+                .number{
+                    font-weight: 600;
+                    font-size: 40px;
+                    line-height: 1.8;
+                }
+                .label{
+                    font-weight: 300;
+                    line-height: 1.5;
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 767.98px) {
+    .counter-component{
+        .content{
+            .content-above{
+                flex-direction: column;
+                .above-right{
+                    padding: 3rem 15px 0;
+                }
+            }
+            .content-below{
+                flex-direction: column;
+                .counter{
+                    margin-bottom: 50px;
+                }
+            }
+        }
+    }
+}
+
+
+
+

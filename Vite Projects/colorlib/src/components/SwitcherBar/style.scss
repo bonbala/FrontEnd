@@ -1,0 +1,229 @@
+@use "../../theme/theme" as theme;
+
+.switcher-component {
+  height: 60px;
+  width: 100%;
+  background-color: theme.$title-color;
+  display: flex;
+  justify-content: space-between;
+  position: fixed;
+  z-index: 10;
+
+  .switcher-left {
+    display: flex;
+
+    .logo {
+      padding: 0 20px;
+      border-right: solid 0.8px theme.$context-color;
+      a {
+        img {
+          margin-top: 15px;
+          height: 50%;
+          width: auto;
+        }
+      }
+    }
+
+    .drawer {
+      height: 100%;
+      width: 110px;
+      background-color: theme.$focus-event-color;
+      color: theme.$icon-color;
+      align-content: center;
+      text-align: center;
+    }
+  }
+
+  .switcher-right {
+    .button-container {
+      display: flex;
+
+      .btn {
+        height: 60px;
+        width: 60px;
+        align-content: center;
+        justify-items: center;
+        border-left: solid 0.8px theme.$context-color;
+        cursor: pointer;
+
+        svg {
+          height: 25px;
+          width: 25px;
+
+          path {
+            color: theme.$icon-color;
+          }
+        }
+
+        &:hover {
+          background-color: theme.$focus-event-color;
+
+          svg {
+            path {
+              color: white;
+            }
+          }
+        }
+      }
+
+      .purchase {
+        background-color: #86c542;
+
+        svg {
+          path {
+            color: white;
+          }
+        }
+      }
+    }
+  }
+}
+
+.nav-up {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 auto;
+  padding: 0 15px;
+  .brand {
+    flex-basis: 33.33%;
+    padding: 24px 0;
+    span {
+      font-size: 38px;
+      font-weight: 900;
+      line-height: 28px;
+    }
+    p {
+      font-size: 15px;
+      font-weight: 900;
+      letter-spacing: 2px;
+      line-height: 15px;
+      width: fit-content;
+    }
+  }
+  .infos-container {
+    padding: 24px 0;
+    display: flex;
+    flex: 1;
+    .email {
+      flex: 1;
+    }
+
+    .phone-contact {
+      flex: 1;
+    }
+
+    .email,
+    .phone-contact {
+      display: flex;
+      align-items: center;
+      svg {
+        height: 20px;
+        width: 20px;
+        path {
+          color: theme.$primary-color;
+        }
+      }
+      .infos {
+        padding-left: 15px;
+        font-weight: 400;
+        font-size: 15px;
+        line-height: 27px;
+        span {
+          font-size: 15px;
+          font-weight: 700;
+        }
+        p {
+          color: theme.$context-color;
+        }
+      }
+    }
+    .button-apply {
+      flex: 1;
+      text-align: end;
+      align-content: center;
+      button {
+        border-radius: 0;
+        border: solid 1px transparent;
+        background-color: theme.$primary-color;
+        color: white;
+        font-size: 16px;
+        font-weight: 400;
+
+        height: 41px;
+        width: 125px;
+        cursor: pointer;
+        transition: all 0.2s ease-in;
+        &:focus {
+          outline: none;
+        }
+        &:hover {
+          background-color: white;
+          color: theme.$primary-color;
+          border: solid 1px theme.$primary-color;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .switcher-right {
+    .button-container {
+      .desktop,
+      .table,
+      .phone {
+        display: none;
+      }
+    }
+  }
+}
+
+@media (max-width: 549px) {
+  .switcher-left {
+    .drawer {
+      display: none;
+    }
+  }
+}
+
+@media (max-width: 767.98px) {
+  .container {
+    max-width: 540px;
+  }
+  .nav-up {
+    flex-direction: column;
+    align-items: start;
+    .infos-container {
+      width: 100%;
+      flex-direction: column;
+      padding: 0;
+      .email,.phone-contact,.button-apply{
+        margin-bottom: 10px ;
+      }
+    }
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .container {
+    max-width: 720px;
+  }
+  .nav-up {
+    flex-direction: column;
+    align-items: start;
+    .infos-container {
+      width: 100%;
+    }
+  }
+}
+@media (min-width: 992px) and (max-width: 1199.98px) {
+  .container {
+    max-width: 960px;
+  }
+}
+@media (min-width: 1200px) {
+  .container {
+    max-width: 1140px;
+  }
+}

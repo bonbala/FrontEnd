@@ -1,0 +1,154 @@
+@use '../../theme/theme' as theme;
+
+.blog-component{
+    padding: 7rem 0;
+
+    background-color: #fafafa;
+    .title{
+        text-align: center;
+        justify-items: center;
+
+        padding: 0 15px;
+        margin-bottom: 5rem;
+        h2,p{
+            width: 66.67%;
+        }
+        h2{
+            font-size: 44px;
+            font-weight: 600;
+            line-height: 1.5;
+
+            margin-bottom: 1.5rem;
+        }
+        p{
+            font-size: 16px;
+            line-height: 1.8;
+            font-weight: 400;
+            color: #666666
+        }
+    }
+
+    .blog-container{
+        margin: 0 auto;
+        padding: 0 15px;
+           
+        display: flex;
+        flex-wrap: wrap;
+        gap: 30px;
+        .blog{
+            background-color: white;
+
+            width: calc((100%/3) - 20px);
+            .illustration{
+                height: 275px;
+                position: relative;
+                img{
+                    height: 100%;
+                    width: 100%;
+
+                    object-fit: cover;
+                }
+                .posted-day{
+                    position: absolute;
+                    left: 0;
+                    bottom: 0;
+                    
+                    display: flex;
+                    flex-direction: column;
+                    background-color: theme.$posted-bg;
+                    width: fit-content;
+
+                    padding: 8px;
+                    color: white;
+                    text-align: center;
+                    span.day{
+                        font-weight: 700;
+                        font-size: 20px;
+                    }
+                    span.moth, span.year{
+                        font-size: 13px;
+                    }
+                }
+            }
+            .text{
+                padding: 1.5rem;
+                h3{
+                    font-size: 20px;
+                    font-weight: 400;
+                    line-height: 1.5;
+
+                    margin-bottom: 1rem;
+                }
+                p{
+                    font-size: 16px;
+                    line-height: 1.8;
+                    font-weight: 400;
+                    color: theme.$context-color;
+
+                    margin-bottom: 1rem;
+                }
+                .bt-text{
+                    display: flex;
+                    justify-content: space-between;
+                    .comment{
+                        display: flex;
+                        align-items: center;
+                        gap: 5px;
+
+                        p{
+                            margin-bottom: 0;
+                            margin-right: 5px;
+
+                            color: theme.$primary-color;
+                        }
+                        span{
+                            color: rgb(179, 179, 179);
+                        }
+                        svg{
+                            path{
+                                color: rgb(179, 179, 179);
+                            }
+                        }
+                    }
+                    button{
+                        background-color: theme.$primary-color;
+                        color: white;
+
+                        padding: 6px 12px;
+                        border-radius: 30px;
+                        border: solid 1px theme.$primary-color;
+                        cursor: pointer;
+
+                        transition: all 0.3s ease-in-out;
+                        &:hover{
+                            background-color: transparent;
+                            color: theme.$primary-color;
+                        }
+                    }
+                }
+            }
+        }
+
+    }
+}
+
+
+@media (max-width: 767.98px) {
+    .blog-component{
+        .blog-container{
+            column-gap: 0;
+            .blog{
+                width: 100%;
+            }
+        }
+    }
+}
+@media (min-width: 768px) and (max-width: 991.98px) {
+    .blog-component{
+        .blog-container{
+            .blog{
+                width: calc(50% - 15px);
+            }
+        }
+    }
+}

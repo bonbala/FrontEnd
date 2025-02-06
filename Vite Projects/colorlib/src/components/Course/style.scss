@@ -1,0 +1,128 @@
+@use '../../theme/theme' as theme ;
+
+.course-component{
+    padding: 7rem 0;
+    .title{
+        text-align: center;
+        justify-items: center;
+
+        padding: 0 15px;
+        margin-bottom: 5rem;
+        h2,p{
+            width: 66.67%;
+        }
+        h2{
+            font-size: 44px;
+            font-weight: 600;
+            line-height: 1.5;
+
+            margin-bottom: 1.5rem;
+        }
+        p{
+            font-size: 16px;
+            line-height: 1.8;
+            font-weight: 400;
+            color: #666666
+        }
+    }
+
+    .course-container{
+        padding: 0 1.5rem;
+
+        display: flex;
+        gap: 30px;
+        .course{
+            
+            img{
+                width: 100%;
+                height: 300px;
+                object-fit: cover;
+            
+            }
+            .info{
+                display: flex;
+
+                margin: 1rem 0;
+                
+                span{
+                    display: flex;
+                    
+                    flex: 1;
+
+                    font-size: 12px;
+                    text-transform: uppercase;
+                    letter-spacing: 1px;
+                    font-weight: 600;
+                    line-height: 1.5;
+                    
+                    color: theme.$context-color;
+                    svg{
+                        height: 12.5px;
+                        width: 13px;
+
+                        margin-right: 8px;
+                        path{
+                            color: theme.$primary-color;
+                        }
+                    }
+                }
+            }
+            .text{
+                h3{
+                    font-weight: 500;
+                    font-size: 24px;
+                    line-height: 1.5;
+
+                    margin-bottom: 0.5rem;
+                }
+                p{
+                    font-size: 16px;
+                    line-height: 1.8;
+                    font-weight: 400;
+                    color: theme.$context-color;
+
+                    margin-bottom: 1rem;
+                }
+                button{
+                    background-color: theme.$primary-color;
+                    color: white;
+
+                    padding: 6px 12px;
+                    margin-bottom: 1rem;
+                    border-radius: 30px;
+                    border: solid 1px theme.$primary-color;
+
+                    cursor: pointer;
+                    transition: all 0.3s ease-in;
+                    &:hover{
+                        background-color: white;
+                        color: theme.$primary-color;
+                    }
+                    
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 767.98px) {
+    .course-component{
+        .title{
+            h2,p{
+                width: 100%;
+            }
+            h2{
+                font-size: 28px;
+            }
+        }
+        .course-container{
+            flex-direction: column;
+            .course{
+                .info{
+                    margin: 2rem 0;
+                }
+                
+            }
+        }
+    }
+}

@@ -1,0 +1,42 @@
+
+
+.header-component{
+    background-color:bisque;
+    display: flex;
+    gap: 50px;
+    justify-content: center;
+
+}
+.header-component.dark{
+    background-color:black;
+    
+}
+.header-component.dark a{
+    color: white;
+}
+.header-component li {
+    position: relative;
+}
+.header-component li::after{
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: red;
+}
+.header-component a {
+    text-decoration: none;
+    color: black;
+
+}
+
+.gap-2{
+    gap: 20px   
+}
+.swiper-button-prev:hover{
+    color: red ;
+    width: 30px;
+}
+.swiper-button-prev{
+    height: 20px;
+}

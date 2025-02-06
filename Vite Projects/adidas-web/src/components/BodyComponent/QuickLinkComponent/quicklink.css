@@ -1,0 +1,113 @@
+.quick-link-component{
+    margin-top: 80px;
+    margin-bottom: 80px;
+}
+.quick-link-component .container{
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+.quick-link-component .container div ul{
+    list-style: none;
+    padding: 24px 32px 0 0;
+    margin: 0;
+}
+.quick-link-component .container div li {
+    margin-bottom: 24px;
+}
+.quick-link-component .container div span {
+    font-size: 16px;
+    font-weight: 700;
+}
+.quick-link-component .mobile-container{
+    display: none;
+}
+
+/* CSS 4 Mobile Screen */
+.quick-link-component .mobile-container button {
+    background-color: transparent;
+    border: none;
+    border-bottom: solid 1px rgb(217, 219, 221);
+    padding: 0 16px;
+}
+.quick-link-component .mobile-container button:hover{
+    background-color: #F5F5F5;
+}
+.quick-link-component .mobile-container .menu-title{
+    display: flex;
+    justify-content: space-between;
+    height: 48px;
+    align-items: center;
+}
+.quick-link-component .mobile-container .menu-title .span{
+    font-weight:700;
+}
+.quick-link-component .mobile-container ul {
+    display: none;
+    list-style: none;
+    margin: 0;
+    padding: 16px;
+}
+.quick-link-component .mobile-container ul[data-open="true"] {
+    display: block;
+}
+.quick-link-component .mobile-container ul li {
+    text-align: start;
+    margin-bottom: 24px;
+}
+/* RESPONSIVE */
+/* Màn hình rộng >=1024 */
+@media (min-width: 1024px){
+    .quick-link-component .container div{
+        width: 25%;
+    }
+}
+@media (max-width: 1023.89px){
+    .quick-link-component .container div{
+        width: 50%;
+    }
+}
+
+@media (max-width: 575.98px) { 
+
+
+ }
+
+/* Điện thoại lớn */
+@media (min-width: 576px) and (max-width: 767.98px) { 
+
+
+ }
+ 
+  /* Máy tính bảng */
+ @media (min-width: 768px) and (max-width: 991.98px){
+
+ }
+
+ /* Laptop nhỏ */
+@media (min-width: 992px) and (max-width: 1199.98px) { 
+
+}
+
+/* Desktop */
+@media (min-width: 1200px) { 
+
+
+}
+@media (max-width: 599.89px) { 
+    .quick-link-component .container{
+        display: none;
+    }
+    .quick-link-component .mobile-container{
+        display: flex;
+        flex-direction: column;
+    }
+
+}
+@media (max-width: 1024px) {
+    .quick-link-component{
+        margin-top: 64px;
+        margin-bottom: 64px;
+    } 
+}
+ 

@@ -43,17 +43,20 @@
                 display: flex;
                 justify-content: space-between;
 
+
                 margin: 1rem 0;
                 
                 span{
                     display: flex;
                     flex-wrap: wrap;
+                    justify-content: center;
                     
                     font-size: 12px;
                     text-transform: uppercase;
                     letter-spacing: 1px;
                     font-weight: 600;
                     line-height: 1.5;
+                    text-align: center;
                     
                     color: theme.$context-color;
                     svg{
@@ -61,6 +64,7 @@
                         width: 13px;
 
                         margin-right: 8px;
+                        margin-bottom: 8px;
                         path{
                             color: theme.$primary-color;
                         }
@@ -120,6 +124,10 @@
             .course{
                 .info{
                     margin: 2rem 0;
+                    span{
+                        flex: 1;
+                        justify-content: start;
+                    }
                 }
                 
             }

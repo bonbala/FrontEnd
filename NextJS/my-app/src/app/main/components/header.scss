@@ -1,0 +1,21 @@
+@media (max-width: 1084px){
+    .middle-nav{
+        margin-inline:30px;
+    }
+    .nav-item{
+        padding-block: 13px;
+
+    }
+    .right-nav{
+        ul{
+            margin-right: 10px;
+        }
+    }
+}
+@media (max-width: 875px){
+    .middle-nav{
+        margin-inline:0;
+        display: flex;
+        align-items: center;
+    }
+}

@@ -11,7 +11,12 @@ import { LiaBarsSolid } from "react-icons/lia";
 import logo from '../../../assets/logo.png'
 import Image from 'next/image';
 import './header.scss'
-const Header = () => {
+
+type HeaderProps = {
+  cartCount: number;
+};
+
+const Header: React.FC<HeaderProps> = ({ cartCount }) => {
   return (
     <div>
       
@@ -28,7 +33,7 @@ const Header = () => {
           <CiUser className='text-[18px]'/>Login
           </div>
           <div className='cart-container flex items-center text-[12px] p-[5px] gap-x-[5px]'>
-          <SlHandbag className='text-[18px]'/>0
+          <SlHandbag className='text-[18px]'/>{cartCount}
           </div>
         </div>
       </div>
@@ -69,7 +74,7 @@ const Header = () => {
             <Image src={logo} alt="logo" className='w-[92px]' />
         </div>
         <div className='right-nav flex items-center justify-center bg-[#181f15] text-white  w-[60px] h-[40px]'>
-            <SlHandbag className='text-[18px]'/>0
+            <SlHandbag className='text-[18px]'/>{cartCount}
         </div>
       </div>
 

@@ -1,50 +1,103 @@
-'use client'
+"use client";
 
-import React, { useState } from 'react'
-import product1 from '../../../../assets/product1.jpg'
-import product2 from '../../../../assets/product2.jpg'
-import product3 from '../../../../assets/product3.jpg'
-import Image from 'next/image'
-import { IoSearchOutline } from 'react-icons/io5'
-import { SlArrowDown, SlArrowUp } from 'react-icons/sl';
+import React, { useState } from "react";
+import Image from "next/image";
+import { IoSearchOutline} from "react-icons/io5";
+import { SlArrowDown, SlArrowUp } from "react-icons/sl";
+import { productList, Product } from "../../../../data/collectionData";
+import { SlHandbag } from "react-icons/sl";
+import "./Collection.scss";
 
-import './Collection.scss'
+const filterSection = [
+  {
+    title: "color",
+    options: ["Black", "Brown", "Camel", "Charcoal", "Green", "Navy Blue"],
+  },
+  { title: "size", options: ["39", "47", "S – 38S", "M – 40S", "L – 42R"] },
+  { title: "fabric", options: ["Loden", "Tweed", "Wool"] },
+];
 
-const productList = [product1, product2, product3,product1, product2, product3,product1, product2, product3,product1, product2, product3]
+type CollectionProps = {
+  onAddToCart: (product: Product) => void;
+};
 
-const Collection = () => {
-  
-  const [openFilters, setOpenFilters] = useState<number[]>([]);
+const Collection: React.FC<CollectionProps> = ({ onAddToCart }) => {
+  const [filters, setFilters] = useState<{
+    color: string[];
+    size: string[];
+    fabric: string[];
+  }>({
+    color: [],
+    size: [],
+    fabric: [],
+  });
 
-  const toggleFilter = (index: number) => {
-    if (openFilters.includes(index)) {
-      setOpenFilters(openFilters.filter((i) => i !== index));
-    } else {
-      setOpenFilters([...openFilters, index]);
-    }
+  const [searchTerm, setSearchTerm] = useState("");
+  const [sortOption, setSortOption] = useState("");
+  const [collapsedSections, setCollapsedSections] = useState<{
+    [key: string]: boolean;
+  }>({});
+
+  const handleFilterChange = (
+    type: "color" | "size" | "fabric",
+    value: string
+  ) => {
+    setFilters((prev) => {
+      const values = prev[type];
+      return {
+        ...prev,
+        [type]: values.includes(value)
+          ? values.filter((v) => v !== value)
+          : [...values, value],
+      };
+    });
   };
 
-  const filterSections = [
-    {
-      title: 'Color',
-      options: ['Black', 'Brown', 'Camel', 'Charcoal', 'Green', 'Navy Blue'],
-      counts: [3, 3, 3, 3, 3, 2]
-    },
-    {
-      title: 'Size',
-      options: ['39', '47', 'S – 38S', 'M – 40S', 'L – 42R'],
-      counts: [2, 2, 2, 2, 2]
-    },
-    {
-      title: 'Fabric',
-      options: ['Loden', 'Tweed', 'Wool'],
-      counts: [2, 2, 2]
-    }
-  ];
-  
+  const toggleSection = (section: string) => {
+    setCollapsedSections((prev) => ({
+      ...prev,
+      [section]: !prev[section],
+    }));
+  };
+
+  const countOptionMatches = (
+    type: "color" | "size" | "fabric",
+    option: string
+  ) => {
+    return productList.filter((product) =>
+      (product[(type + "s") as keyof Product] as string[]).includes(option)
+    ).length;
+  };
+
+  let filteredProducts = productList.filter((product) => {
+    const matchColor =
+      filters.color.length === 0 ||
+      filters.color.some((color) => product.colors.includes(color));
+    const matchSize =
+      filters.size.length === 0 ||
+      filters.size.some((size) => product.sizes.includes(size));
+    const matchFabric =
+      filters.fabric.length === 0 ||
+      filters.fabric.some((fabric) => product.fabrics.includes(fabric));
+    const matchSearch =
+      searchTerm === "" ||
+      product.name.toLowerCase().includes(searchTerm.toLowerCase().trim());
+
+    return matchColor && matchSize && matchFabric && matchSearch;
+  });
+
+  if (sortOption === "a-z") {
+    filteredProducts = filteredProducts.sort((a, b) =>
+      a.name.localeCompare(b.name)
+    );
+  } else if (sortOption === "z-a") {
+    filteredProducts = filteredProducts.sort((a, b) =>
+      b.name.localeCompare(a.name)
+    );
+  }
 
   return (
-    <section className="section-collection bg-white text-black px-10 pt-8 pb-4">
+    <section className="section-collection bg-white text-black px-10 pt-8 pb-4 ">
       <p className="mb-6 text-[17px] leading-relaxed">
         For centuries Loden coats kept alpine hunters and herdsmen warm and dry
         through the harsh Austrian winters. The tradition lives on in these
@@ -53,157 +106,113 @@ const Collection = () => {
 
       <div className="main-collection flex gap-6">
         {/* Filter Sidebar */}
-        <div className="filter-container w-[20%]">
-          {/* <div className="border-b border-[#e3e3e3] pb-4 mb-4">
-            <h3 className="text-[13px] font-semibold uppercase tracking-wide mb-3 flex gap-x-1.5">
-              <SlArrowDown className='text-[10px]'/>
-              COLOR
-            </h3>
-            <ul className="space-y-1 text-[14px]">
-              <li className='flex items-center justify-between'>
-                <div><input type="checkbox" className="mr-2" />
-                Black</div><span>(3)</span>
-              </li>
-              <li className='flex items-center justify-between'>
-                <div><input type="checkbox" className="mr-2" />
-                Brown</div><span>(3)</span>
-              </li>
-              <li className='flex items-center justify-between'>
-                <div><input type="checkbox" className="mr-2" />
-                Camel</div><span>(3)</span>
-              </li>
-              <li className='flex items-center justify-between'>
-                <div><input type="checkbox" className="mr-2" />
-                Charcoal</div><span>(3)</span>
-              </li>
-              <li className='flex items-center justify-between'>
-                <div><input type="checkbox" className="mr-2" />
-                Green</div><span>(3)</span>
-              </li>
-              <li className='flex items-center justify-between'>
-                <div><input type="checkbox" className="mr-2" />
-                Navy Blue</div>
-    <span>(2)</span>         </li>
-            </ul>
-          </div>
+        <aside className="filter-container w-[20%]">
+          {filterSection.map((section, idx) => {
+            const isCollapsed = collapsedSections[section.title] ?? false;
 
-          <div className="border-b border-[#e3e3e3] pb-4 mb-4">
-          <h3 className="text-[13px] font-semibold uppercase tracking-wide mb-3 flex gap-x-1.5">
-              <SlArrowDown className='text-[10px]'/>
-              SIZE
-            </h3>
-            <ul className="space-y-1 text-[14px]">
-              <li className='flex items-center justify-between'>
-                <div><input type="checkbox" className="mr-2" />
-                39 </div><span>(2)</span>
-              </li>
-              <li className='flex items-center justify-between'>
-                <div><input type="checkbox" className="mr-2" />
-                47 </div><span>(2)</span>
-              </li>
-              <li className='flex items-center justify-between'>
-                <div><input type="checkbox" className="mr-2" />S – 38S </div><span>(2)</span>
-              </li>
-              <li className='flex items-center justify-between'>
-                <div><input type="checkbox" className="mr-2" />M – 40S </div><span>(2)</span>
-              </li>
-              <li className='flex items-center justify-between'>
-                <div><input type="checkbox" className="mr-2" />L – 42R </div><span>(2)</span>
-              </li>
-            </ul>
-          </div>
-
-          <div className="pb-4 mb-4">
-          <h3 className="text-[13px] font-semibold uppercase tracking-wide mb-3 flex gap-x-1.5">
-              <SlArrowDown className='text-[10px]'/>
-              FABRIC
-            </h3>
-            <ul className="space-y-1 text-[14px]">
-              <li className='flex items-center justify-between'>
-                <div><input type="checkbox" className="mr-2" />
-                Loden </div><span>(2)</span>
-              </li>
-              <li className='flex items-center justify-between'>
-                <div><input type="checkbox" className="mr-2" />
-                Tweed </div><span>(2)</span>
-              </li>
-              <li className='flex items-center justify-between'>
-                <div><input type="checkbox" className="mr-2" />
-                Wool </div><span>(2)</span>
-              </li>
-            </ul>
-          </div> */}
-          {filterSections.map((section, index) => (
-            <div key={index} className="border-b border-[#e3e3e3] pb-4 mb-4">
-              <h3
-                className="text-[13px] font-semibold uppercase tracking-wide mb-3 flex gap-x-1.5 cursor-pointer"
-                onClick={() => toggleFilter(index)}
+            return (
+              <div
+                key={idx}
+                className="filter-section cursor-pointer border-b py-2.5"
               >
-                {openFilters.includes(index) ? (
-                  <SlArrowUp className="text-[10px]" />
-                ) : (
-                  <SlArrowDown className="text-[10px]" />
-                )}
-                {section.title}
-              </h3>
-              <ul
-                className={`space-y-1 text-[14px] filter-content ${
-                  openFilters.includes(index) ? "show" : "hide"
-                }`}
-              >
-                {section.options.map((option, i) => (
-                  <li key={i} className="flex items-center justify-between">
-                    <div>
-                      <input type="checkbox" className="mr-2" />
-                      {option}
-                    </div>
-                    <span>({section.counts[i]})</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
+                <div
+                  className="tag-title text-[14px] font-bold uppercase flex gap-x-2 items-center"
+                  onClick={() => toggleSection(section.title)}
+                >
+                  {isCollapsed ? (
+                    <SlArrowDown size={10} />
+                  ) : (
+                    <SlArrowUp size={10} />
+                  )}
+                  <span>{section.title}</span>
+                </div>
 
-        {/* Product Section */}
+                <div
+                  className={`
+          overflow-hidden transition-all duration-[800ms] ease-in-out
+          ${
+            isCollapsed
+              ? "max-h-0 opacity-0 scale-y-95"
+              : "max-h-60 opacity-100 scale-y-100"
+          }
+          origin-top
+        `}
+                >
+                  <ul className="mt-2.5">
+                    {section.options.map((opt, idx2) => (
+                      <li key={idx2} className="flex items-center mb-1">
+                        <input
+                          type="checkbox"
+                          className="mr-1.5"
+                          checked={filters[
+                            section.title as "color" | "size" | "fabric"
+                          ].includes(opt)}
+                          onChange={() =>
+                            handleFilterChange(
+                              section.title as "color" | "size" | "fabric",
+                              opt
+                            )
+                          }
+                        />
+                        <p className="flex-1">{opt}</p>
+                        <span>
+                          (
+                          {countOptionMatches(
+                            section.title as "color" | "size" | "fabric",
+                            opt
+                          )}
+                          )
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            );
+          })}
+        </aside>
+
+        {/* Products */}
         <div className="collections-container w-[80%]">
-          {/* Search Bar */}
+          {/* Search & Actions */}
           <div className="search-container flex items-center border border-gray-300 rounded-md px-3 py-2 mb-6">
             <IoSearchOutline className="text-[20px] mr-3 text-gray-500" />
             <input
               type="text"
               placeholder="Search products"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
               className="w-full outline-none text-[15px]"
             />
           </div>
 
-          {/* Actions */}
           <div className="action-container flex justify-between items-center mb-6">
             <span className="text-[15px] font-medium">
-              <span className="font-bold">15</span> Products
+              <span className="font-bold">{filteredProducts.length}</span>{" "}
+              Products
             </span>
             <div className="filter-selection flex items-center gap-4 text-[14px]">
               <div className="flex items-center gap-2 bg-gray-100 px-1.5">
-                <label htmlFor="sort-by-quanity" className="">
-                  Show
-                </label>
+                <label htmlFor="show-count">Show</label>
                 <select
-                  id="sort-by-quanity"
+                  id="show-count"
                   className="border border-transparent h-[44px]"
                 >
                   <option value="12">12</option>
                   <option value="24">24</option>
                 </select>
               </div>
-              <div className=" bg-gray-100 px-1.5">
+              <div className="bg-gray-100 px-1.5">
                 <select
                   id="sort-by"
                   className="border border-transparent h-[44px]"
+                  value={sortOption}
+                  onChange={(e) => setSortOption(e.target.value)}
                 >
-                  <option value="">Availability</option>
-                  <option value="">Best Selling</option>
-                  <option value="">Alphabetically, A-Z</option>
-                  <option value="">Alphabetically, Z-A</option>
+                  <option value="a-z">Alphabetically, A-Z</option>
+                  <option value="z-a">Alphabetically, Z-A</option>
+                  <option value="availability">Availability</option>
+                  <option value="best-selling">Best Selling</option>
                 </select>
               </div>
             </div>
@@ -211,36 +220,42 @@ const Collection = () => {
 
           {/* Product Grid */}
           <div className="collections grid grid-cols-3 gap-6">
-            {/* Product Card */}
-            {productList.map((item, index) => (
-              <div
-                key={index}
-                className="product group relative bg-gray-200 px-[10px] pt-0 pb-[15px] overflow-hidden cursor-pointer"
-              >
-                {/* Image */}
-                <Image
-                  src={item}
-                  alt={`Product ${index}`}
-                  className="w-full h-full object-cover z-0"
-                />
-
-                {/* Overlay */}
-                <div className="absolute inset-0 bg-black opacity-10 z-10 group-hover:opacity-40 transition-opacity duration-500" />
-
-                {/* Product Info */}
-                <div className="product-info absolute bottom-[40px] left-[20px] text-white z-20">
-                  <p className="font-[700] text-[21px]/[100%] tracking-[2px] uppercase py-2">
-                    {`Mens Classic Loden Overcoat "Shiver No More"`}
-                  </p>
-                  <p className="font-[100] text-[21px]/[100%]">25.097.000 đ</p>
-                </div>
-              </div>
-            ))}
+          {filteredProducts.map((product) => (
+        <div
+          key={product.id}
+          className="product group relative bg-gray-200 px-[10px] pt-0 pb-[15px] overflow-hidden cursor-pointer"
+        >
+          <Image
+            src={product.image}
+            alt={product.name}
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-black opacity-10 z-10 group-hover:opacity-40 transition-opacity duration-500" />
+          <div className="product-info absolute bottom-[40px] left-[20px] text-white z-20">
+            <p className="font-[700] text-[21px] tracking-[2px] uppercase py-2">
+              {product.name}
+            </p>
+            <p className="font-[100] text-[21px]">
+              {product.price.toLocaleString("vi-VN")} đ
+            </p>
+          </div>
+          <button
+            onClick={() => onAddToCart(product)}
+            className="absolute top-2.5 right-5 text-white z-40"
+          >
+            <SlHandbag size={20} />
+          </button>
+        </div>
+      ))}
           </div>
         </div>
       </div>
+
+      <div className='flex justify-center mt-15 h-[640px]'>
+      <iframe className='h-full' title="vimeo-player" src="https://player.vimeo.com/video/743911758?h=17a66078f1" width="640" height="360" frameBorder="0"    allowFullScreen></iframe>
+      </div>
     </section>
   );
-}
+};
 
-export default Collection
+export default Collection;

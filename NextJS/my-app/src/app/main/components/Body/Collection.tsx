@@ -241,9 +241,9 @@ const Collection: React.FC<CollectionProps> = ({ onAddToCart }) => {
           </div>
           <button
             onClick={() => onAddToCart(product)}
-            className="absolute top-2.5 right-5 text-white z-40"
+            className="absolute top-2.5 right-5 text-white z-40 cursor-pointer max-[1000px]:right-9 max-[1000px]:top-3"
           >
-            <SlHandbag size={20} />
+            <SlHandbag size={20} className="transition-transform duration-200 hover:scale-125 active:scale-150 max-[1000px]:w-[25px] max-[1000px]:h-[25px]" />
           </button>
         </div>
       ))}
@@ -252,7 +252,7 @@ const Collection: React.FC<CollectionProps> = ({ onAddToCart }) => {
       </div>
 
       <div className='flex justify-center mt-15 h-[640px]'>
-      <iframe className='h-full' title="vimeo-player" src="https://player.vimeo.com/video/743911758?h=17a66078f1" width="640" height="360" frameBorder="0"    allowFullScreen></iframe>
+      <iframe className='h-full' title="vimeo-player" src="https://player.vimeo.com/video/743911758?h=17a66078f1" width="640" height="360" allowFullScreen={true}></iframe>
       </div>
     </section>
   );

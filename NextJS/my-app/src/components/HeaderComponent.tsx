@@ -24,6 +24,9 @@ const HeaderComponent = () => {
                             <li className='hover:underline'>
                                 <Link href={'/main'}>Main</Link>
                             </li>
+                            <li className='hover:underline'>
+                                <Link href={'/exam'}>exam</Link>
+                            </li>
                         </ul>
                     </nav>
                 </div>

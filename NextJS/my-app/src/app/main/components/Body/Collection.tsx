@@ -1,11 +1,11 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import Image from "next/image";
-import { IoSearchOutline} from "react-icons/io5";
+import { IoSearchOutline } from "react-icons/io5";
 import { SlArrowDown, SlArrowUp } from "react-icons/sl";
 import { productList, Product } from "../../../../data/collectionData";
-import { SlHandbag } from "react-icons/sl";
+import { BsBag, BsBagCheckFill,BsLayoutTextSidebarReverse } from "react-icons/bs";
 import "./Collection.scss";
 
 const filterSection = [
@@ -13,16 +13,34 @@ const filterSection = [
     title: "color",
     options: ["Black", "Brown", "Camel", "Charcoal", "Green", "Navy Blue"],
   },
-  { title: "size", options: ["39", "47", "S – 38S", "M – 40S", "L – 42R"] },
+  { title: "size", options: [
+    'S – 36S', 'S – 38S', 'M – 40S', 'M – 40R', 'L – 42R',
+    'L – 44L', 'XL – 46R', 'XL – 46L', 'XXL – 48R', 'XXL – 50R',
+    '37', '39', '41', '43', '45', '47', '49', '51', '53', '55'
+  ] },
   { title: "fabric", options: ["Loden", "Tweed", "Wool"] },
 ];
 
-type CollectionProps = {
-  onAddToCart: (product: Product) => void;
-};
+export interface CartItem extends Product {
+  quantity: number;
+}
 
-const Collection: React.FC<CollectionProps> = ({ onAddToCart }) => {
-  const [filters, setFilters] = useState<{
+interface CollectionProps {
+  cartItems: CartItem[];
+  handleAddCartItems: (product: Product) => void;
+}
+
+const Collection: React.FC<CollectionProps> = ({
+  cartItems,
+  handleAddCartItems,
+}) => {
+  const [openFilters, setOpenFilters] = useState<Record<string, boolean>>({
+    color: true,
+    size: true,
+    fabric: true,
+  });
+
+  const [selectedFilters, setSelectedFilters] = useState<{
     color: string[];
     size: string[];
     fabric: string[];
@@ -32,17 +50,45 @@ const Collection: React.FC<CollectionProps> = ({ onAddToCart }) => {
     fabric: [],
   });
 
-  const [searchTerm, setSearchTerm] = useState("");
   const [sortOption, setSortOption] = useState("");
-  const [collapsedSections, setCollapsedSections] = useState<{
-    [key: string]: boolean;
-  }>({});
+  const [searchTerm, setSearchTerm] = useState("");
+  const [showQuantity, setShowQuantity] = useState(12)
+  const [openFilterMobile, setOpenFilterMobile] = useState(false)
+  
 
-  const handleFilterChange = (
+  // Hàm handle Toglle cho Filter Bar
+  const handleToggleFilter = (title: string) => {
+    setOpenFilters((prev) => ({ ...prev, [title]: !prev[title] }));
+  };
+
+  // Hàm đếm số lượng cho từng option của filter
+  const countFilterOptions = (products: Product[]) => {
+    const counts = {
+      color: {} as Record<string, number>,
+      size: {} as Record<string, number>,
+      fabric: {} as Record<string, number>,
+    };
+    for (const product of products) {
+      for (const color of product.colors) {
+        counts.color[color] = (counts.color[color] || 0) + 1;
+      }
+      for (const size of product.sizes) {
+        counts.size[size] = (counts.size[size] || 0) + 1;
+      }
+      for (const fabric of product.fabrics) {
+        counts.fabric[fabric] = (counts.fabric[fabric] || 0) + 1;
+      }
+    }
+
+    return counts;
+  };
+
+  // Hàm xét các filter
+  const handleChangeFilter = (
     type: "color" | "size" | "fabric",
     value: string
   ) => {
-    setFilters((prev) => {
+    setSelectedFilters((prev) => {
       const values = prev[type];
       return {
         ...prev,
@@ -53,32 +99,17 @@ const Collection: React.FC<CollectionProps> = ({ onAddToCart }) => {
     });
   };
 
-  const toggleSection = (section: string) => {
-    setCollapsedSections((prev) => ({
-      ...prev,
-      [section]: !prev[section],
-    }));
-  };
-
-  const countOptionMatches = (
-    type: "color" | "size" | "fabric",
-    option: string
-  ) => {
-    return productList.filter((product) =>
-      (product[(type + "s") as keyof Product] as string[]).includes(option)
-    ).length;
-  };
-
+  // Biến chứa các sản phẩm sau khi filter
   let filteredProducts = productList.filter((product) => {
     const matchColor =
-      filters.color.length === 0 ||
-      filters.color.some((color) => product.colors.includes(color));
+      selectedFilters.color.length === 0 ||
+      selectedFilters.color.some((color) => product.colors.includes(color));
     const matchSize =
-      filters.size.length === 0 ||
-      filters.size.some((size) => product.sizes.includes(size));
+      selectedFilters.size.length === 0 ||
+      selectedFilters.size.some((size) => product.sizes.includes(size));
     const matchFabric =
-      filters.fabric.length === 0 ||
-      filters.fabric.some((fabric) => product.fabrics.includes(fabric));
+      selectedFilters.fabric.length === 0 ||
+      selectedFilters.fabric.some((fabric) => product.fabrics.includes(fabric));
     const matchSearch =
       searchTerm === "" ||
       product.name.toLowerCase().includes(searchTerm.toLowerCase().trim());
@@ -86,6 +117,7 @@ const Collection: React.FC<CollectionProps> = ({ onAddToCart }) => {
     return matchColor && matchSize && matchFabric && matchSearch;
   });
 
+  // Sort dánh sách sản phẩm
   if (sortOption === "a-z") {
     filteredProducts = filteredProducts.sort((a, b) =>
       a.name.localeCompare(b.name)
@@ -95,6 +127,10 @@ const Collection: React.FC<CollectionProps> = ({ onAddToCart }) => {
       b.name.localeCompare(a.name)
     );
   }
+
+  
+
+  const optionCounts = useMemo(() => countFilterOptions(productList), []);
 
   return (
     <section className="section-collection bg-white text-black px-10 pt-8 pb-4 ">
@@ -108,64 +144,57 @@ const Collection: React.FC<CollectionProps> = ({ onAddToCart }) => {
         {/* Filter Sidebar */}
         <aside className="filter-container w-[20%]">
           {filterSection.map((section, idx) => {
-            const isCollapsed = collapsedSections[section.title] ?? false;
-
+            const isOpen = openFilters[section.title];
             return (
-              <div
-                key={idx}
-                className="filter-section cursor-pointer border-b py-2.5"
-              >
+              <div key={idx} className="border-b border-[#e3e3e3] py-4">
                 <div
-                  className="tag-title text-[14px] font-bold uppercase flex gap-x-2 items-center"
-                  onClick={() => toggleSection(section.title)}
+                  className="uppercase font-bold text-[14px]/[14px] text-[#3a3a3a] font-sans flex cursor-pointer gap-2"
+                  onClick={() => handleToggleFilter(section.title)}
                 >
-                  {isCollapsed ? (
-                    <SlArrowDown size={10} />
-                  ) : (
-                    <SlArrowUp size={10} />
-                  )}
-                  <span>{section.title}</span>
+                  {isOpen ? <SlArrowUp size={8} /> : <SlArrowDown size={8} />}
+                  <p>{section.title}</p>
                 </div>
 
                 <div
-                  className={`
-          overflow-hidden transition-all duration-[800ms] ease-in-out
-          ${
-            isCollapsed
-              ? "max-h-0 opacity-0 scale-y-95"
-              : "max-h-60 opacity-100 scale-y-100"
-          }
-          origin-top
-        `}
+                  className={`flex flex-col mt-4 transition-all duration-800 overflow-hidden ${
+                    isOpen
+                      ? section.options.length > 8
+                        ? "max-h-[200px] overflow-y-auto"
+                        : "max-h-[500px]"
+                      : "max-h-0"
+                  }`}
                 >
-                  <ul className="mt-2.5">
-                    {section.options.map((opt, idx2) => (
-                      <li key={idx2} className="flex items-center mb-1">
-                        <input
-                          type="checkbox"
-                          className="mr-1.5"
-                          checked={filters[
-                            section.title as "color" | "size" | "fabric"
-                          ].includes(opt)}
-                          onChange={() =>
-                            handleFilterChange(
-                              section.title as "color" | "size" | "fabric",
-                              opt
-                            )
-                          }
-                        />
-                        <p className="flex-1">{opt}</p>
-                        <span>
-                          (
-                          {countOptionMatches(
+                  {section.options.map((opt, idx2) => (
+                    <div key={idx2} className="flex items-center my-1.5">
+                      <input
+                        type="checkbox"
+                        className="w-[15px] h-[15px] mr-1.5 "
+                        id={opt}
+                        checked={selectedFilters[
+                          section.title as "color" | "size" | "fabric"
+                        ].includes(opt)}
+                        onChange={() =>
+                          handleChangeFilter(
                             section.title as "color" | "size" | "fabric",
                             opt
-                          )}
                           )
-                        </span>
-                      </li>
-                    ))}
-                  </ul>
+                        }
+                      />
+                      <label
+                        htmlFor={opt}
+                        className="text-[14px] text-[#171f15] font-light font-sans"
+                      >
+                        {opt}
+                      </label>
+                      <span className="text-[14px] text-[#171f15] font-light font-sans flex-1 text-end">
+                        (
+                        {optionCounts[
+                          section.title as keyof typeof optionCounts
+                        ]?.[opt] || 0}
+                        ){/* Chưa hiếu dòng này */}
+                      </span>
+                    </div>
+                  ))}
                 </div>
               </div>
             );
@@ -180,33 +209,41 @@ const Collection: React.FC<CollectionProps> = ({ onAddToCart }) => {
             <input
               type="text"
               placeholder="Search products"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
               className="w-full outline-none text-[15px]"
+              onChange={(e) => setSearchTerm(e.target.value)}
             />
           </div>
 
-          <div className="action-container flex justify-between items-center mb-6">
-            <span className="text-[15px] font-medium">
+          <div className="action-container flex justify-between items-center mb-6 max-md:justify-normal max-md: flex-wrap">
+            <span className="text-[15px] font-medium max-md:hidden">
               <span className="font-bold">{filteredProducts.length}</span>{" "}
               Products
             </span>
-            <div className="filter-selection flex items-center gap-4 text-[14px]">
-              <div className="flex items-center gap-2 bg-gray-100 px-1.5">
+
+            <div
+              className="w-[49%] mr-[2%] border h-[44px] flex items-center gap-x-1.5 px-1.5 cursor-pointer min-md:hidden"
+              onClick={() => setOpenFilterMobile(true)}
+            >
+              <BsLayoutTextSidebarReverse size={16}/>
+              <span>Filter By</span>
+            </div>
+
+            <div className="filter-selection flex items-center gap-4 text-[14px] max-md:w-[49%] ">
+              <div className="flex items-center gap-2 bg-gray-100 px-1.5 max-md:hidden">
                 <label htmlFor="show-count">Show</label>
                 <select
                   id="show-count"
                   className="border border-transparent h-[44px]"
+                  onChange={(e) => setShowQuantity(Number(e.target.value))}
                 >
                   <option value="12">12</option>
-                  <option value="24">24</option>
+                  <option value="6">6</option>
                 </select>
               </div>
-              <div className="bg-gray-100 px-1.5">
+              <div className="bg-gray-100 px-1.5 max-md:w-full max-md:border">
                 <select
                   id="sort-by"
-                  className="border border-transparent h-[44px]"
-                  value={sortOption}
+                  className="border border-transparent h-[44px] max-md:w-full"
                   onChange={(e) => setSortOption(e.target.value)}
                 >
                   <option value="a-z">Alphabetically, A-Z</option>
@@ -216,43 +253,159 @@ const Collection: React.FC<CollectionProps> = ({ onAddToCart }) => {
                 </select>
               </div>
             </div>
+
+            <span className="text-[15px] mt-[15px] font-medium min-md:hidden">
+              <span className="font-bold">{filteredProducts.length}</span>{" "}
+              Products
+            </span>
           </div>
 
           {/* Product Grid */}
           <div className="collections grid grid-cols-3 gap-6">
-          {filteredProducts.map((product) => (
-        <div
-          key={product.id}
-          className="product group relative bg-gray-200 px-[10px] pt-0 pb-[15px] overflow-hidden cursor-pointer"
-        >
-          <Image
-            src={product.image}
-            alt={product.name}
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-black opacity-10 z-10 group-hover:opacity-40 transition-opacity duration-500" />
-          <div className="product-info absolute bottom-[40px] left-[20px] text-white z-20">
-            <p className="font-[700] text-[21px] tracking-[2px] uppercase py-2">
-              {product.name}
-            </p>
-            <p className="font-[100] text-[21px]">
-              {product.price.toLocaleString("vi-VN")} đ
-            </p>
-          </div>
-          <button
-            onClick={() => onAddToCart(product)}
-            className="absolute top-2.5 right-5 text-white z-40 cursor-pointer max-[1000px]:right-9 max-[1000px]:top-3"
-          >
-            <SlHandbag size={20} className="transition-transform duration-200 hover:scale-125 active:scale-150 max-[1000px]:w-[25px] max-[1000px]:h-[25px]" />
-          </button>
-        </div>
-      ))}
+            {filteredProducts.slice(0, showQuantity).map((product) => (
+              <div
+                key={product.id}
+                className="product group relative bg-gray-200 px-[10px] pt-0 pb-[15px] overflow-hidden cursor-pointer"
+              >
+                <Image
+                  src={product.image}
+                  alt={product.name}
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-black opacity-10 z-10 group-hover:opacity-40 transition-opacity duration-500" />
+                <div className="product-info absolute bottom-[40px] left-[20px] text-white z-20">
+                  <p className="font-[700] text-[21px] tracking-[2px] uppercase py-2">
+                    {product.name}
+                  </p>
+                  <p className="font-[100] text-[21px]">
+                    {product.price.toLocaleString("vi-VN")} đ
+                  </p>
+                </div>
+                <button
+                  className="absolute top-2.5 right-5 text-white z-40 cursor-pointer max-[1000px]:right-9 max-[1000px]:top-3"
+                  onClick={() => handleAddCartItems(product)}
+                >
+                  {cartItems.some((item) => item.id === product.id) ? (
+                    <BsBagCheckFill
+                      size={25}
+                      className="transition-transform duration-200 hover:scale-125 active:scale-150 text-green-500 max-[1000px]:w-[25px] max-[1000px]:h-[25px]"
+                    />
+                  ) : (
+                    <BsBag
+                      size={25}
+                      className="transition-transform duration-200 hover:scale-125 active:scale-150 max-[1000px]:w-[25px] max-[1000px]:h-[25px]"
+                    />
+                  )}
+                </button>
+              </div>
+            ))}
           </div>
         </div>
       </div>
 
-      <div className='flex justify-center mt-15 h-[640px]'>
-      <iframe className='h-full' title="vimeo-player" src="https://player.vimeo.com/video/743911758?h=17a66078f1" width="640" height="360" allowFullScreen={true}></iframe>
+      <div className="flex justify-center mt-15 h-[640px]">
+        <iframe
+          className="h-full"
+          title="vimeo-player"
+          src="https://player.vimeo.com/video/743911758?h=17a66078f1"
+          width="640"
+          height="360"
+          allowFullScreen={true}
+        ></iframe>
+      </div>
+
+      <div
+        className={`fixed inset-0 z-51 transition-opacity duration-300 ${
+          openFilterMobile
+            ? "opacity-100 pointer-events-auto"
+            : "opacity-0 pointer-events-none"
+        }`}
+      >
+        {/* Overlay */}
+        <div
+          className="absolute inset-0 bg-black/50"
+          onClick={() => setOpenFilterMobile(false)}
+        />
+
+        {/* Sidebar */}
+        <div
+          className={`
+      absolute left-0 top-0 h-full w-[70vw] bg-white
+      transition-transform duration-500
+      ${openFilterMobile ? "translate-x-0" : "-translate-x-full"}
+    `}
+        >
+          <div className="uppercase p-4 border-b relative">
+            <h2>filter by</h2>
+            <button
+              className="absolute top-2 right-3 text-xl"
+              onClick={() => setOpenFilterMobile(false)}
+            >
+              ✕
+            </button>
+          </div>
+
+         
+          <aside className="filter-container h-[calc(100vh-64px)] overflow-y-auto p-4">
+          {filterSection.map((section, idx) => {
+            const isOpen = openFilters[section.title];
+            return (
+              <div key={idx} className="border-b border-[#e3e3e3] py-4">
+                <div
+                  className="uppercase font-bold text-[14px]/[14px] text-[#3a3a3a] font-sans flex cursor-pointer gap-2"
+                  onClick={() => handleToggleFilter(section.title)}
+                >
+                  {isOpen ? <SlArrowUp size={8} /> : <SlArrowDown size={8} />}
+                  <p>{section.title}</p>
+                </div>
+
+                <div
+                  className={`flex flex-col mt-4 transition-all duration-800 overflow-hidden ${
+                    isOpen
+                      ? section.options.length > 8
+                        ? "max-h-[200px] overflow-y-auto"
+                        : "max-h-[500px]"
+                      : "max-h-0"
+                  }`}
+                >
+                  {section.options.map((opt, idx2) => (
+                    <div key={idx2} className="flex items-center my-1.5">
+                      <input
+                        type="checkbox"
+                        className="w-[15px] h-[15px] mr-1.5 "
+                        id={opt}
+                        checked={selectedFilters[
+                          section.title as "color" | "size" | "fabric"
+                        ].includes(opt)}
+                        onChange={() =>
+                          handleChangeFilter(
+                            section.title as "color" | "size" | "fabric",
+                            opt
+                          )
+                        }
+                      />
+                      <label
+                        htmlFor={opt}
+                        className="text-[14px] text-[#171f15] font-light font-sans"
+                      >
+                        {opt}
+                      </label>
+                      <span className="text-[14px] text-[#171f15] font-light font-sans flex-1 text-end">
+                        (
+                        {optionCounts[
+                          section.title as keyof typeof optionCounts
+                        ]?.[opt] || 0}
+                        ){/* Chưa hiếu dòng này */}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            );
+          })}
+        </aside>
+          
+        </div>
       </div>
     </section>
   );

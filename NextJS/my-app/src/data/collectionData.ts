@@ -21,7 +21,7 @@ export const productList: Product[] = [
     price: 25097000,
     image: product1,
     colors: ['Black', 'Brown'],
-    sizes: ['M – 40S', 'L – 42R'],
+    sizes: ['M – 40S', 'L – 42R', '43'],
     fabrics: ['Loden']
   },
   {
@@ -30,7 +30,7 @@ export const productList: Product[] = [
     price: 22050000,
     image: product2,
     colors: ['Camel', 'Charcoal'],
-    sizes: ['S – 38S', 'M – 40S'],
+    sizes: ['S – 38S', 'M – 40S', '41'],
     fabrics: ['Wool']
   },
   {
@@ -39,7 +39,7 @@ export const productList: Product[] = [
     price: 19800000,
     image: product3,
     colors: ['Green', 'Navy Blue'],
-    sizes: ['L – 42R', '47'],
+    sizes: ['L – 42R', '47', '53'],
     fabrics: ['Tweed']
   },
   {
@@ -48,7 +48,7 @@ export const productList: Product[] = [
     price: 27500000,
     image: product1,
     colors: ['Black'],
-    sizes: ['39', 'S – 38S'],
+    sizes: ['39', 'S – 38S', 'XL – 46R'],
     fabrics: ['Loden', 'Wool']
   },
   {
@@ -57,7 +57,7 @@ export const productList: Product[] = [
     price: 23000000,
     image: product2,
     colors: ['Brown', 'Green'],
-    sizes: ['47', 'L – 42R'],
+    sizes: ['47', 'L – 42R', '49'],
     fabrics: ['Tweed']
   },
   {
@@ -66,7 +66,7 @@ export const productList: Product[] = [
     price: 24250000,
     image: product3,
     colors: ['Charcoal', 'Navy Blue'],
-    sizes: ['M – 40S', 'S – 38S'],
+    sizes: ['M – 40S', 'S – 38S', '37'],
     fabrics: ['Wool']
   },
   {
@@ -75,7 +75,7 @@ export const productList: Product[] = [
     price: 26000000,
     image: product1,
     colors: ['Camel', 'Black'],
-    sizes: ['39', '47'],
+    sizes: ['39', '47', '51'],
     fabrics: ['Loden']
   },
   {
@@ -84,7 +84,7 @@ export const productList: Product[] = [
     price: 25500000,
     image: product2,
     colors: ['Green'],
-    sizes: ['M – 40S', 'L – 42R'],
+    sizes: ['M – 40S', 'L – 42R', 'XL – 46L'],
     fabrics: ['Wool', 'Tweed']
   },
   {
@@ -93,7 +93,7 @@ export const productList: Product[] = [
     price: 29000000,
     image: product3,
     colors: ['Charcoal'],
-    sizes: ['39', 'S – 38S'],
+    sizes: ['39', 'S – 38S', '55'],
     fabrics: ['Loden']
   },
   {
@@ -102,7 +102,7 @@ export const productList: Product[] = [
     price: 21500000,
     image: product1,
     colors: ['Navy Blue', 'Brown'],
-    sizes: ['47', 'L – 42R'],
+    sizes: ['47', 'L – 42R', '45'],
     fabrics: ['Tweed']
   },
   {
@@ -111,7 +111,7 @@ export const productList: Product[] = [
     price: 24500000,
     image: product2,
     colors: ['Black', 'Camel'],
-    sizes: ['M – 40S', 'S – 38S'],
+    sizes: ['M – 40S', 'S – 38S', 'XXL – 48R'],
     fabrics: ['Wool']
   },
   {
@@ -120,7 +120,8 @@ export const productList: Product[] = [
     price: 28000000,
     image: product3,
     colors: ['Green', 'Charcoal'],
-    sizes: ['39', '47'],
+    sizes: ['39', '47', 'XXL – 50R'],
     fabrics: ['Loden', 'Wool']
   },
 ]
+

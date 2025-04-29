@@ -1,89 +1,116 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState} from 'react'
 import Header from './components/Header';
 import Banner from './components/Body/Banner';
 import Collection from './components/Body/Collection';
 import Footer from './components/Footer';
 import { Product } from '@/data/collectionData';
 
-type CartItem = Product & { quantity: number };
+
+export interface CartItem extends Product {
+  quantity: number
+}
 
 const Page = () => {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
+  const [showSecondaryHeader, setShowSecondaryHeader] = useState(false);
+  const bannerRef = useRef<HTMLDivElement>(null);
   const [showDiscountPopup, setShowDiscountPopup] = useState(true);
 
-  const handleAddToCart = (product: Product) => {
-    setCartItems((prev) => {
-      const existingItem = prev.find((item) => item.id === product.id);
-      if (existingItem) {
-        return prev.map((item) =>
+  const handleAddCartItems = (product: Product) => {
+    setCartItems(prev => {
+      const existingProduct = prev.find(item => item.id === product.id);
+      if (existingProduct) {
+        // Nếu sản phẩm đã có, tăng quantity
+        return prev.map(item =>
           item.id === product.id
             ? { ...item, quantity: item.quantity + 1 }
             : item
         );
+      } else {
+        // Nếu chưa có, thêm mới với quantity = 1
+        return [...prev, { ...product, quantity: 1 }];
       }
-      return [...prev, { ...product, quantity: 1 }];
     });
   };
+  
+  const handleRemoveFromCart = (productId: number) => {
+  setCartItems(prev => prev.filter(item => item.id !== productId));
+};
 
-  const handleIncreaseQuantity = (id: number) => {
-    setCartItems((prev) =>
-      prev.map((item) =>
-        item.id === id ? { ...item, quantity: item.quantity + 1 } : item
+const handleIncreaseQuantity = (productId: number) => {
+  setCartItems(prev =>
+    prev.map(item =>
+      item.id === productId ? { ...item, quantity: item.quantity + 1 } : item
+    )
+  );
+};
+
+const handleDecreaseQuantity = (productId: number) => {
+  setCartItems(prev =>
+    prev
+      .map(item =>
+        item.id === productId
+          ? { ...item, quantity: item.quantity - 1 }
+          : item
       )
-    );
+      .filter(item => item.quantity > 0)
+  );
+};
+
+useEffect(() => {
+  const handleScroll = () => {
+    if (bannerRef.current) {
+      const bannerHeight = bannerRef.current.offsetHeight;
+      const scrollY = window.scrollY;
+      setShowSecondaryHeader(scrollY > bannerHeight);
+    }
   };
 
-  const handleDecreaseQuantity = (id: number) => {
-    setCartItems((prev) =>
-      prev
-        .map((item) =>
-          item.id === id && item.quantity > 1
-            ? { ...item, quantity: item.quantity - 1 }
-            : item
-        )
-        .filter((item) => item.quantity > 0)
-    );
-  };
-
-  const handleRemoveItem = (id: number) => {
-    setCartItems((prev) => prev.filter((item) => item.id !== id));
-  };
+  window.addEventListener('scroll', handleScroll);
+  return () => window.removeEventListener('scroll', handleScroll);
+}, []);
 
   return (
     <div className="relative">
       <Header
         cartItems={cartItems}
+        onRemoveFromCart={handleRemoveFromCart}
         onIncreaseQuantity={handleIncreaseQuantity}
         onDecreaseQuantity={handleDecreaseQuantity}
-        onRemoveItem={handleRemoveItem}
+        showSecondaryHeader={showSecondaryHeader}
       />
-      <Banner />
-      <Collection onAddToCart={handleAddToCart} />
+      <div ref={bannerRef}>
+        <Banner />
+      </div>
+      <Collection
+        cartItems={cartItems}
+        handleAddCartItems={handleAddCartItems}
+      />
       <Footer />
 
-      {/* 🎁 Get 50% Off Button */}
+      {/* Sale off */}
       <div
         onClick={() => setShowDiscountPopup(true)}
         style={{ filter: "drop-shadow(0px 0px 30px rgba(0, 0, 0, 0.15))" }}
         className={`
-    bg-white text-black text-[18px]/[22px] text-center content-center font-bold 
-    h-12.5 w-[184px] fixed z-50 bottom-0 left-[20px] cursor-pointer rounded-t 
-    flex items-center justify-center
-    transition-all duration-900 ease-in-out
-    ${
-      showDiscountPopup
-        ? "translate-y-40 opacity-0"
-        : "translate-y-0 opacity-100"
-    }
-  `}
-      >
-        Get 50% Off
-      </div>
-
-      {/* 🔥 Discount Popup */}
-      {showDiscountPopup && (
+          bg-white text-black text-[18px]/[22px] text-center content-center font-bold 
+          h-12.5 w-[184px] fixed z-50 bottom-0 left-[20px] cursor-pointer rounded-t 
+          flex items-center justify-center
+          transition-all duration-900 ease-in-out
+          ${
+            showDiscountPopup
+              ? "translate-y-40 opacity-0"
+              : "translate-y-0 opacity-100"
+          }
+          `}
+            >
+              Get 50% Off
+        </div>
+        
+        {/* Popup Sale OFF */}
+        {showDiscountPopup && (
         <div className="fixed inset-0 bg-black/50 z-50 flex justify-center items-center">
         <div
           style={{
@@ -122,4 +149,3 @@ const Page = () => {
 };
 
 export default Page;
- 
